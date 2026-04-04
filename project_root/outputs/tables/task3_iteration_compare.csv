@@ -1,0 +1,2 @@
+iteration_id,change,model,threshold,f1,auroc,precision,recall,specificity,decision,notes
+0,baseline_from_B3,xgboost,0.5750000000000001,0.7359249329758714,0.9498621882726876,0.6504739336492891,0.8472222222222222,0.8965275341985268,accept,Target already met in baseline; no further forced complexity increase.

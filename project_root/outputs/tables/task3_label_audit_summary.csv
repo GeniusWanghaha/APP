@@ -1,0 +1,10 @@
+item,status,evidence
+label_source_current,risk,weak_label_from_annotations only checks ann.symbol for AFIB/AFL/f/F; ignores atr.aux_note rhythm labels
+task_granularity_current,risk,"record-level (one sample per record), not segment-level AF classification"
+window_definition_current,fail,no explicit segment length/step/AF ratio threshold in current task3 pipeline
+split_strategy_current,partial_ok,"GroupKFold on subject_id(record_id proxy); patient-wise intent yes, but no multi-window same-subject structure"
+class_balance_current,risk,"sample_count=34, positive=4, negative=30"
+data_leakage_check,no_direct_leak_found,current pipeline has 1 sample per record with GroupKFold groups=record_id
+label_inversion_check,inconclusive,no direct inversion signal; but AF labels likely missing due symbol-only mapping
+time_axis_alignment_check,not_applicable_current_design,"record-level features over full signal, no segment timestamp alignment implemented"
+aux_note_af_signal_available,yes,"afdb_aux_has_af=True, ltafdb_aux_has_af=True; current loader/model path does not use aux_note"

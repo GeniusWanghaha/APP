@@ -1,0 +1,8 @@
+reason,count,ratio_over_total_beats
+order_violation_R_foot_peak,14726,0.8660824560371699
+foot_to_peak_non_positive,14726,0.8660824560371699
+delay_jump_r2peak,5017,0.2950655766629418
+delay_jump_r2foot,3671,0.21590307592777744
+r2foot_out_of_range,2904,0.17079338940187025
+r2peak_out_of_range,2141,0.12591895547844498
+missing_foot_or_peak,31,0.0018232076692348408

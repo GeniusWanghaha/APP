@@ -1,0 +1,111 @@
+menu "Phone Case ECG+PPG Terminal"
+
+config APP_BLE_DEVICE_NAME
+    string "BLE device name"
+    default "ECG-PPG-Terminal"
+
+config APP_BLE_PREFERRED_MTU
+    int "Preferred BLE ATT MTU"
+    range 23 247
+    default 247
+
+config APP_ECG_RING_CAPACITY
+    int "ECG ringbuffer sample capacity"
+    range 64 2048
+    default 512
+
+config APP_PPG_RING_CAPACITY
+    int "PPG ringbuffer sample capacity"
+    range 64 2048
+    default 512
+
+config APP_BLE_TX_QUEUE_DEPTH
+    int "BLE TX frame queue depth"
+    range 2 64
+    default 8
+
+choice APP_AD8232_SDN_POLARITY
+    prompt "AD8232 SDN polarity"
+    default APP_AD8232_SDN_ACTIVE_LOW
+    help
+        The standalone AD8232 datasheet and the local board reference expose the
+        pin as nSDN, so active-low is the default. If your module inverts this
+        logic, switch to active-high here.
+
+config APP_AD8232_SDN_ACTIVE_LOW
+    bool "nSDN active low (default)"
+
+config APP_AD8232_SDN_ACTIVE_HIGH
+    bool "SDN active high"
+
+endchoice
+
+config APP_AD8232_LEAD_OFF_DEBOUNCE_SAMPLES
+    int "AD8232 lead-off debounce samples"
+    range 1 16
+    default 3
+
+config APP_AD8232_ADC_SAT_LOW
+    int "ADC low saturation threshold"
+    range 0 256
+    default 4
+
+config APP_AD8232_ADC_SAT_HIGH
+    int "ADC high saturation threshold"
+    range 3800 4095
+    default 4091
+
+config APP_PPG_PHASE_US
+    int "Default PPG phase offset in us"
+    range -20000 20000
+    default 1250
+
+config APP_PPG_LATENCY_US
+    int "Default PPG capture latency in us"
+    range 0 50000
+    default 5000
+
+config APP_MAX30102_RED_LED_PA
+    hex "MAX30102 RED LED current register"
+    range 0x00 0xFF
+    default 0x24
+
+config APP_MAX30102_IR_LED_PA
+    hex "MAX30102 IR LED current register"
+    range 0x00 0xFF
+    default 0x24
+
+config APP_MAX30102_ENABLE_TEMP
+    bool "Enable periodic MAX30102 die temperature read"
+    default n
+
+config APP_MAX30102_USE_INT
+    bool "Use MAX30102 INT-driven FIFO servicing"
+    default y
+
+config APP_MAX30102_INT_TIMEOUT_MS
+    int "MAX30102 interrupt timeout in ms before poll fallback"
+    range 20 1000
+    default 120
+
+config APP_MAX30102_POLL_PERIOD_MS
+    int "MAX30102 FIFO service period in ms"
+    range 5 100
+    default 20
+
+config APP_PPG_FINGER_IR_THRESHOLD
+    int "Finger-detect IR threshold"
+    range 0 262143
+    default 12000
+
+config APP_STATUS_NOTIFY_PERIOD_MS
+    int "Status notify period in ms"
+    range 100 5000
+    default 1000
+
+config APP_LOG_LEVEL_DEFAULT
+    int "Runtime log level default"
+    range 0 5
+    default 3
+
+endmenu

@@ -1,0 +1,13 @@
+﻿dataset_name,abbrev,status,source_url,modality,phase,task_tags,record_count,expected_record_count,used_in_current_main_eval,actually_has_data,reason_if_not_fully_used
+mitdb,mitdb,ok,https://physionet.org/content/mitdb/1.0.0/,ECG,1,"ECG_RPEAK,ECG_HRV,ECG_ARRHYTHMIA",48,48,True,True,已参与或可参与当前评估
+afdb,afdb,ok,https://physionet.org/content/afdb/1.0.0/,ECG,1,"ECG_AF,ECG_HRV",25,25,True,True,已参与或可参与当前评估
+ltafdb,ltafdb,incomplete,https://physionet.org/content/ltafdb/1.0.0/,ECG,3,ECG_AF,49,84,True,True,record_count=49 < expected_record_count=84 from RECORDS
+qtdb,qtdb,ok,https://physionet.org/content/qtdb/1.0.0/,ECG,2,ECG_QT_PWAVE,105,105,True,True,已参与或可参与当前评估
+nsrdb,nsrdb,ok,https://physionet.org/content/nsrdb/1.0.0/,ECG,2,"ECG_RPEAK,ECG_HRV",18,18,True,True,已参与或可参与当前评估
+nstdb,nstdb,ok,https://physionet.org/content/nstdb/1.0.0/,ECG,2,"ECG_RPEAK,ECG_ARRHYTHMIA",15,15,True,True,已参与或可参与当前评估
+but_pdb,but_pdb,ok,https://physionet.org/content/but-pdb/1.0.0/,ECG,2,ECG_QT_PWAVE,50,50,True,True,已参与或可参与当前评估
+but_ppg,but_ppg,ok,https://physionet.org/content/butppg/1.0.0/,PPG,1,"PPG_HR,PPG_SQI",96,96,True,True,已参与或可参与当前评估
+bidmc,bidmc,ok,https://physionet.org/content/bidmc/1.0.0/,ECG+PPG+RESP,1,"PPG_RESP,ECG_RESP,PPG_HR",53,53,True,True,已参与或可参与当前评估
+ptt_ppg,ptt_ppg,ok,https://physionet.org/content/pulse-transit-time-ppg/1.1.0/,ECG+PPG,1,"ECG_PPG_SYNC,ECG_PPG_PTT",66,66,True,True,已参与或可参与当前评估
+ppg_dalia,ppg_dalia,missing,https://archive.ics.uci.edu/dataset/495/ppg%2Bdalia,PPG+ACC,2,"PPG_HR,PPG_MOTION,PPG_SQI",0,0,True,False,原始数据目录为空/未成功获取
+apnea_ecg,apnea_ecg,ok,https://physionet.org/content/apnea-ecg/1.0.0/,ECG+RESP,3,ECG_RESP,86,86,True,True,已参与或可参与当前评估

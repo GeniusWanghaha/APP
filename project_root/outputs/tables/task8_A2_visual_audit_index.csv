@@ -1,0 +1,10 @@
+scene,record_id,figure_path,beats_visualized,bad_order_beats_count,bad_order_ratio
+run,s1_run,outputs\figures\task8_visual_audit_run_s1_run.png,10,10,1.0
+run,s2_run,outputs\figures\task8_visual_audit_run_s2_run.png,10,8,0.8
+run,s3_run,outputs\figures\task8_visual_audit_run_s3_run.png,10,10,1.0
+sit,s1_sit,outputs\figures\task8_visual_audit_sit_s1_sit.png,10,10,1.0
+sit,s2_sit,outputs\figures\task8_visual_audit_sit_s2_sit.png,10,10,1.0
+sit,s3_sit,outputs\figures\task8_visual_audit_sit_s3_sit.png,10,10,1.0
+walk,s1_walk,outputs\figures\task8_visual_audit_walk_s1_walk.png,10,10,1.0
+walk,s2_walk,outputs\figures\task8_visual_audit_walk_s2_walk.png,10,2,0.2
+walk,s3_walk,outputs\figures\task8_visual_audit_walk_s3_walk.png,10,10,1.0

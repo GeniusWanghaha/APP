@@ -1,0 +1,36 @@
+# 02 Iteration Log
+
+## Round 0
+
+| key | value |
+| --- | --- |
+| round_id | `0` |
+| adaptive_threshold_scale | `0.8` |
+| decision | `baseline` |
+| score | `0.6027489544401987` |
+| improvement_percent | `0.0` |
+| regression_flags | `[]` |
+
+## Round 1
+
+| key | value |
+| --- | --- |
+| round_id | `1` |
+| adaptive_threshold_scale | `0.7` |
+| decision | `accepted` |
+| accepted | `True` |
+| score | `0.6030275001120374` |
+| improvement_percent | `0.08610624532844328` |
+| regression_flags | `[]` |
+
+## Round 2
+
+| key | value |
+| --- | --- |
+| round_id | `2` |
+| adaptive_threshold_scale | `0.8` |
+| decision | `rejected_due_to_regression` |
+| accepted | `False` |
+| score | `0.6027489544401987` |
+| improvement_percent | `-0.08603216626030182` |
+| regression_flags | `["task1_adaptive_f1_regression"]` |

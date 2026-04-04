@@ -1,0 +1,12 @@
+﻿file_path,category,reason,safe_auto_delete
+outputs/metrics/round_00_metrics.json,B_建议归档,历史轮次快照，追溯可用,False
+outputs/metrics/round_01_metrics.json,B_建议归档,历史轮次快照，追溯可用,False
+outputs/metrics/round_02_metrics.json,B_建议归档,历史轮次快照，追溯可用,False
+outputs/reports/task8_sync_step1_pipeline_audit.md,B_建议归档,主线同步过程记录,False
+outputs/reports/task8_sync_step2_code_merge.md,B_建议归档,主线同步过程记录,False
+outputs/reports/task8_sync_step3_refresh_log.md,B_建议归档,主线同步过程记录,False
+outputs/reports/task8_sync_step4_stale_value_audit.md,B_建议归档,主线同步过程记录,False
+outputs/reports/task8_sync_step5_summary_update.md,B_建议归档,主线同步过程记录,False
+outputs/reports/task8_task3_step1_context.md,B_建议归档,专项中间上下文记录,False
+outputs/tables/task3_feature_matrix.csv,B_建议归档,大体量中间产物，保留追溯,False
+outputs/tables/task3_rebuilt_segments.csv,B_建议归档,大体量中间产物，保留追溯,False

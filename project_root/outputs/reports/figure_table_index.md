@@ -1,0 +1,86 @@
+# 图表与表格索引
+
+| 类型 | 路径 | 任务 | 建议答辩使用 |
+| --- | --- | --- | --- |
+| figure | outputs/figures/af_pr_curve.png | Task3 | optional |
+| figure | outputs/figures/af_roc_curve.png | Task3 | optional |
+| figure | outputs/figures/ecg_filter_rpeak_example.png | Task1 | yes |
+| figure | outputs/figures/figure_index.json | 通用 | optional |
+| figure | outputs/figures/iteration_score_trend.png | 通用 | optional |
+| figure | outputs/figures/ppg_peak_foot_example.png | Task6 | yes |
+| figure | outputs/figures/ppg_sqi_distribution.png | Task6 | yes |
+| figure | outputs/figures/ptt_pwtt_delay_distribution.png | Task8 | yes |
+| figure | outputs/figures/regression_flags_by_round.png | Task9 | optional |
+| figure | outputs/figures/rpeak_detection_example.png | Task1 | yes |
+| figure | outputs/figures/rr_estimation_error_distribution.png | Task7 | yes |
+| figure | outputs/figures/task3_baseline_pr.png | Task3 | yes |
+| figure | outputs/figures/task3_baseline_roc.png | Task3 | yes |
+| figure | outputs/figures/task3_failure_case_FN_16.png | Task3 | optional |
+| figure | outputs/figures/task3_failure_case_FN_17.png | Task3 | optional |
+| figure | outputs/figures/task3_failure_case_FN_18.png | Task3 | optional |
+| figure | outputs/figures/task3_failure_case_FN_19.png | Task3 | optional |
+| figure | outputs/figures/task3_failure_case_FN_20.png | Task3 | optional |
+| figure | outputs/figures/task3_failure_case_FP_10.png | Task3 | optional |
+| figure | outputs/figures/task3_failure_case_FP_6.png | Task3 | optional |
+| figure | outputs/figures/task3_failure_case_FP_7.png | Task3 | optional |
+| figure | outputs/figures/task3_failure_case_FP_8.png | Task3 | optional |
+| figure | outputs/figures/task3_failure_case_FP_9.png | Task3 | optional |
+| figure | outputs/figures/task3_failure_case_TN_11.png | Task3 | optional |
+| figure | outputs/figures/task3_failure_case_TN_12.png | Task3 | optional |
+| figure | outputs/figures/task3_failure_case_TN_13.png | Task3 | optional |
+| figure | outputs/figures/task3_failure_case_TN_14.png | Task3 | optional |
+| figure | outputs/figures/task3_failure_case_TN_15.png | Task3 | optional |
+| figure | outputs/figures/task3_failure_case_TP_1.png | Task3 | optional |
+| figure | outputs/figures/task3_failure_case_TP_2.png | Task3 | optional |
+| figure | outputs/figures/task3_failure_case_TP_3.png | Task3 | optional |
+| figure | outputs/figures/task3_failure_case_TP_4.png | Task3 | optional |
+| figure | outputs/figures/task3_failure_case_TP_5.png | Task3 | optional |
+| figure | outputs/figures/task8_delay_distribution_before_after.png | Task8 | yes |
+| figure | outputs/figures/task8_subjectwise_delay_boxplot.png | Task8 | yes |
+| figure | outputs/figures/task8_visual_audit_run_s1_run.png | Task8 | optional |
+| figure | outputs/figures/task8_visual_audit_run_s2_run.png | Task8 | optional |
+| figure | outputs/figures/task8_visual_audit_run_s3_run.png | Task8 | optional |
+| figure | outputs/figures/task8_visual_audit_sit_s1_sit.png | Task8 | optional |
+| figure | outputs/figures/task8_visual_audit_sit_s2_sit.png | Task8 | optional |
+| figure | outputs/figures/task8_visual_audit_sit_s3_sit.png | Task8 | optional |
+| figure | outputs/figures/task8_visual_audit_walk_s1_walk.png | Task8 | optional |
+| figure | outputs/figures/task8_visual_audit_walk_s2_walk.png | Task8 | optional |
+| figure | outputs/figures/task8_visual_audit_walk_s3_walk.png | Task8 | optional |
+| table | outputs/tables/current_artifact_registry.csv | 通用 | optional |
+| table | outputs/tables/dataset_overview_master.csv | 通用 | yes |
+| table | outputs/tables/figure_table_index.csv | 通用 | optional |
+| table | outputs/tables/file_cleanup_candidates.csv | 通用 | optional |
+| table | outputs/tables/file_cleanup_delete_list.csv | 通用 | optional |
+| table | outputs/tables/kotlin_python_metric_parity.csv | Kotlin-Python一致性 | optional |
+| table | outputs/tables/kotlin_python_numeric_parity.csv | Kotlin-Python一致性 | optional |
+| table | outputs/tables/main_metrics_snapshot.csv | 通用 | optional |
+| table | outputs/tables/master_best_results_table.csv | 通用 | yes |
+| table | outputs/tables/project_task_algorithm_map.csv | 通用 | optional |
+| table | outputs/tables/task3_baseline_model_compare.csv | Task3 | yes |
+| table | outputs/tables/task3_baseline_predictions.csv | Task3 | optional |
+| table | outputs/tables/task3_failure_case_summary.csv | Task3 | optional |
+| table | outputs/tables/task3_failure_case_table.csv | Task3 | optional |
+| table | outputs/tables/task3_feature_matrix.csv | Task3 | optional |
+| table | outputs/tables/task3_iteration_compare.csv | Task3 | optional |
+| table | outputs/tables/task3_label_audit_summary.csv | Task3 | optional |
+| table | outputs/tables/task3_label_probe_records.csv | Task3 | optional |
+| table | outputs/tables/task3_rebuilt_dataset_stats.csv | Task3 | optional |
+| table | outputs/tables/task3_rebuilt_segments.csv | Task3 | optional |
+| table | outputs/tables/task8_A2_visual_audit_index.csv | Task8 | optional |
+| table | outputs/tables/task8_recomputed_metrics.csv | Task8 | yes |
+| table | outputs/tables/task8_rule_check_details.csv | Task8 | optional |
+| table | outputs/tables/task8_rule_check_reason_breakdown.csv | Task8 | optional |
+| table | outputs/tables/task8_rule_check_summary.csv | Task8 | optional |
+| table | outputs/tables/task8_scene_stats_after.csv | Task8 | optional |
+| table | outputs/tables/task8_subject_stats_after.csv | Task8 | optional |
+
+## 推荐答辩图表清单
+- outputs/figures/ecg_filter_rpeak_example.png
+- outputs/figures/rpeak_detection_example.png
+- outputs/figures/task3_baseline_roc.png
+- outputs/figures/task3_baseline_pr.png
+- outputs/figures/ppg_peak_foot_example.png
+- outputs/figures/ppg_sqi_distribution.png
+- outputs/figures/task8_delay_distribution_before_after.png
+- outputs/figures/task8_subjectwise_delay_boxplot.png
+- outputs/tables/master_best_results_table.csv

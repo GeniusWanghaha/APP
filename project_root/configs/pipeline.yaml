@@ -1,0 +1,22 @@
+seed: 42
+max_iterations: 8
+min_improvement_percent: 1.0
+stop_after_stagnation_rounds: 2
+phase_to_run: 1
+download:
+  retry_count: 2
+  timeout_sec: 600
+  force_redownload: false
+evaluation:
+  ecg_segment_sec: 30
+  ppg_segment_sec: 30
+  rr_min_ms: 320
+  rr_max_ms: 2000
+paths:
+  raw_physionet: datasets/raw/physionet
+  raw_uci: datasets/raw/uci
+  manifests: datasets/manifests
+  logs: datasets/logs
+  outputs_metrics: outputs/metrics
+  outputs_reports: outputs/reports
+  outputs_figures: outputs/figures

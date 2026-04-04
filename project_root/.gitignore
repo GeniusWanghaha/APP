@@ -1,0 +1,18 @@
+﻿# Large local assets (do not upload)
+datasets/
+
+# Local Python environment
+env/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Notebook cache
+.ipynb_checkpoints/
+
+# OS/editor artifacts
+.DS_Store
+Thumbs.db

@@ -1,0 +1,12 @@
+{
+  "ecg_filter_rpeak_example": "D:\\optoelectronic_design\\APP\\project_root\\outputs\\figures\\ecg_filter_rpeak_example.png",
+  "rpeak_detection_example": "D:\\optoelectronic_design\\APP\\project_root\\outputs\\figures\\rpeak_detection_example.png",
+  "ppg_peak_foot_example": "D:\\optoelectronic_design\\APP\\project_root\\outputs\\figures\\ppg_peak_foot_example.png",
+  "af_roc_curve": "D:\\optoelectronic_design\\APP\\project_root\\outputs\\figures\\af_roc_curve.png",
+  "af_pr_curve": "D:\\optoelectronic_design\\APP\\project_root\\outputs\\figures\\af_pr_curve.png",
+  "ppg_sqi_distribution": "D:\\optoelectronic_design\\APP\\project_root\\outputs\\figures\\ppg_sqi_distribution.png",
+  "rr_estimation_error_distribution": "D:\\optoelectronic_design\\APP\\project_root\\outputs\\figures\\rr_estimation_error_distribution.png",
+  "ptt_pwtt_delay_distribution": "D:\\optoelectronic_design\\APP\\project_root\\outputs\\figures\\ptt_pwtt_delay_distribution.png",
+  "iteration_score_trend": "D:\\optoelectronic_design\\APP\\project_root\\outputs\\figures\\iteration_score_trend.png",
+  "regression_flags_by_round": "D:\\optoelectronic_design\\APP\\project_root\\outputs\\figures\\regression_flags_by_round.png"
+}

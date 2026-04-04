@@ -1,0 +1,4 @@
+round_id,adaptive_threshold_scale,decision,score,improvement_percent,regression_flags,accepted
+0,0.8,baseline,0.6027489544401987,0.0,[],
+1,0.7,accepted,0.6030275001120374,0.08610624532844328,[],True
+2,0.8,rejected_due_to_regression,0.6027489544401987,-0.08603216626030182,['task1_adaptive_f1_regression'],False

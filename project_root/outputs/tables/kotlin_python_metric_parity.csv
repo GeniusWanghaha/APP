@@ -1,0 +1,14 @@
+﻿metric,python_reference,kotlin_runtime,status,notes
+Heart Rate (HR),src/features/hrv.py::hrv_features(mean_hr_bpm),android_project/.../CardiovascularSignalProcessor.kt::computeHeartRate(),MATCHED_DEFINITION,Both derive HR from RR mean: 60000 / mean_rr_ms.
+Mean RR,src/features/hrv.py::hrv_features(mean_rr_ms),CardiovascularSignalProcessor.kt::rrMeanMs = rrIntervalsMs.average(),MATCHED_DEFINITION,Same direct average of RR intervals.
+SDNN,src/features/hrv.py::hrv_features(sdnn_ms=np.std(rr_ms)),CardiovascularSignalProcessor.kt::List<Double>.stdDev(),MATCHED_DEFINITION,Both use population standard deviation (divide by N).
+RMSSD,src/features/hrv.py::hrv_features(rmssd_ms),CardiovascularSignalProcessor.kt::List<Double>.rmssd(),MATCHED_DEFINITION,Both compute sqrt(mean(diff(RR)^2)).
+pNN50,src/features/hrv.py::hrv_features(pnn50_percent),CardiovascularSignalProcessor.kt::List<Double>.pnn50(),MATCHED_DEFINITION,Both count adjacent RR diffs > 50 ms divided by total diffs.
+R->foot delay (PTT),src/features/ptt.py::pair_delays_ms_constrained,CardiovascularSignalProcessor.kt::findMatchingRPeakForPulse + registerPpgPeak,MATCHED_RULES,"Aligned windows: R->foot 80-400 ms, ordered pairing enforced."
+R->peak delay (PAT),src/features/ptt.py::pair_delays_ms_constrained,CardiovascularSignalProcessor.kt::findMatchingRPeakForPulse + registerPpgPeak,MATCHED_RULES,Aligned windows: R->peak 120-500 ms; requires same beat pairing.
+Delay jump rejection,src/features/ptt.py::jump_mad_scale/jump_min_ms,CardiovascularSignalProcessor.kt::isDelayStable(),MATCHED_RULES,Both guard against large delay jumps using MAD and 20 ms floor.
+PPG SQI,src/preprocessing/ppg.py::estimate_ppg_sqi,CardiovascularSignalProcessor.kt::estimateSignalQuality(),PARTIAL_MISMATCH,"Both output [0,1], but feature composition differs (Kotlin adds hardware flags/correlation gating)."
+AF screening,src/evaluation/task3_af.py + src/features/af_features.py,No equivalent AF classifier pipeline in app runtime,PYTHON_ONLY,Mobile runtime has arrhythmia index but not full AF classifier.
+Respiration rate (EDR/PDR),src/features/respiration.py + task7 evaluation,No respiration estimator in current app runtime,PYTHON_ONLY,Requires explicit Kotlin implementation for full parity.
+SpO2,No validated SpO2 task in current public-dataset pipeline,CardiovascularSignalProcessor.kt::estimateSpo2FromWindow(),KOTLIN_ONLY,Runtime available; no dataset-level parity benchmark in project_root yet.
+PWV / Elasticity / VascularAge / ReflectionIndex,No direct counterpart in current dataset pipeline,CardiovascularSignalProcessor.kt::derived metrics,KOTLIN_ONLY,Engineering-derived indicators; not currently mirrored in Python benchmark.

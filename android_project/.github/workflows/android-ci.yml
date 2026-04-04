@@ -1,0 +1,42 @@
+name: Android CI
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+    branches: ["*"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: gradle
+
+      - name: Grant gradlew execute permission
+        run: chmod +x ./gradlew
+
+      - name: Run lint
+        run: ./gradlew lintDemoDebug lintContestDebug
+
+      - name: Run unit tests
+        run: ./gradlew testDemoDebugUnitTest testContestDebugUnitTest
+
+      - name: Build debug APKs
+        run: ./gradlew assembleDemoDebug assembleContestDebug
+
+      - name: Upload APK artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apks
+          path: |
+            app/build/outputs/apk/demo/debug/*.apk
+            app/build/outputs/apk/contest/debug/*.apk

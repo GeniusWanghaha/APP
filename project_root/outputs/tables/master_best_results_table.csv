@@ -1,0 +1,11 @@
+﻿task,metric_name,best_value,dataset,algorithm_version,source_file,current_status,for_formal_plan_or_defense,notes
+Task1 ECG R峰,F1(adaptive),0.9713,mitdb/nsrdb/nstdb,adaptive_threshold_scale=0.7,outputs/metrics/best_metrics.json,stable,yes,工程级公共数据验证
+Task2 HRV,"RMSSD(clean, ms)",91.67,mitdb/nsrdb/afdb,RR清洗规则: 320-2000ms,outputs/metrics/best_metrics.json,stable,yes,HRV仅在足够长度+节律稳定条件下解释
+Task3 AF(主线),F1,0.0000,afdb/ltafdb/mitdb,weak-label RF baseline,outputs/metrics/best_metrics.json,needs work,no,主线尚未并回专项修复
+Task3 AF(专项最优),F1 / AUROC,0.7359 / 0.9499,afdb/ltafdb/mitdb(30s窗),XGBoost + patient-wise,outputs/tables/task3_baseline_model_compare.csv,provisional,yes_with_disclaimer,可表述为初步AF筛查，不可表述临床诊断
+Task4 异常搏,F1,0.6582,mitdb,RR偏离启发式,outputs/metrics/best_metrics.json,provisional,yes_with_disclaimer,召回高，精度仍有提升空间
+Task5 QT/P波,delineation_success_rate,1.0000,qtdb/but_pdb,SQI门控 + nk.ecg_delineate,outputs/metrics/best_metrics.json,provisional,yes_with_disclaimer,流程跑通不等于时程精度临床级
+Task6 PPG,HR proxy MAE(bpm),0.4352,but_ppg/bidmc,peak-foot + SQI,outputs/metrics/best_metrics.json,stable,yes,当前为工程proxy误差
+Task7 呼吸率,ECG MAE / PPG MAE(bpm),2.84 / 4.70,bidmc/apnea_ecg,EDR/PDR + PSD,outputs/metrics/best_metrics.json,stable(趋势),yes_with_disclaimer,工程趋势估计，不作诊断
+Task8 ECG+PPG时序,R->foot / R->peak mean(ms),227.45 / 406.92,ptt_ppg,constrained pairing fix,outputs/metrics/best_metrics.json,stable,yes_with_disclaimer,生理时延特征；趋势验证，不作临床诊断
+Task9 回归门控,regression_flags,[],跨任务,rule-based gate,outputs/metrics/best_metrics.json,stable,yes,当前无回退标记

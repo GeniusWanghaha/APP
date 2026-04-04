@@ -1,0 +1,20 @@
+{
+  "task8_records_total": 66,
+  "old_r_to_foot_mean_ms": 313.9160377358487,
+  "old_r_to_peak_mean_ms": 189.23106985832916,
+  "new_r_to_foot_mean_ms": 227.45376712328778,
+  "new_r_to_peak_mean_ms": 406.9212328767125,
+  "new_evaluated_records": 66,
+  "updated_round_files": [
+    "round_00_metrics.json",
+    "round_01_metrics.json",
+    "round_02_metrics.json"
+  ],
+  "updated_files": [
+    "D:\\optoelectronic_design\\APP\\project_root\\outputs\\metrics\\best_metrics.json",
+    "D:\\optoelectronic_design\\APP\\project_root\\outputs\\reports\\01_baseline_report.md",
+    "D:\\optoelectronic_design\\APP\\project_root\\outputs\\reports\\03_final_validation_report.md",
+    "D:\\optoelectronic_design\\APP\\project_root\\outputs\\figures\\ptt_pwtt_delay_distribution.png",
+    "D:\\optoelectronic_design\\APP\\project_root\\outputs\\figures\\figure_index.json"
+  ]
+}

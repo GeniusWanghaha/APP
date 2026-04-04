@@ -1,0 +1,13 @@
+task,metric,value
+task1,f1_adaptive,0.97130765368338
+task2,mean_hr_clean_bpm,80.62498170229215
+task3,f1,0.0
+task4,f1,0.6582113821138211
+task5,delineation_success_rate,1.0
+task6,sqi_mean,0.837774846652732
+task7,ecg_resp_mae_bpm,2.8421052631578947
+task7,ppg_resp_mae_bpm,4.7
+task8,r_to_foot_mean_ms,227.45376712328778
+task8,r_to_peak_mean_ms,406.9212328767125
+task8,delay_order_ok_r2f_lt_r2p,1.0
+task9,regression_flags_count,0.0

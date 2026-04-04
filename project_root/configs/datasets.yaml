@@ -1,0 +1,120 @@
+datasets:
+  - dataset_name: mitdb
+    source_type: physionet
+    source_url: https://physionet.org/content/mitdb/1.0.0/
+    db_slug: mitdb
+    version: "1.0.0"
+    phase: 1
+    task_tags: [ECG_RPEAK, ECG_HRV, ECG_ARRHYTHMIA]
+    normalized_group: ecg_arrhythmia
+    modality: ECG
+
+  - dataset_name: afdb
+    source_type: physionet
+    source_url: https://physionet.org/content/afdb/1.0.0/
+    db_slug: afdb
+    version: "1.0.0"
+    phase: 1
+    task_tags: [ECG_AF, ECG_HRV]
+    normalized_group: ecg_af
+    modality: ECG
+
+  - dataset_name: ltafdb
+    source_type: physionet
+    source_url: https://physionet.org/content/ltafdb/1.0.0/
+    db_slug: ltafdb
+    version: "1.0.0"
+    phase: 3
+    task_tags: [ECG_AF]
+    normalized_group: ecg_af
+    modality: ECG
+
+  - dataset_name: qtdb
+    source_type: physionet
+    source_url: https://physionet.org/content/qtdb/1.0.0/
+    db_slug: qtdb
+    version: "1.0.0"
+    phase: 2
+    task_tags: [ECG_QT_PWAVE]
+    normalized_group: ecg_qt
+    modality: ECG
+
+  - dataset_name: nsrdb
+    source_type: physionet
+    source_url: https://physionet.org/content/nsrdb/1.0.0/
+    db_slug: nsrdb
+    version: "1.0.0"
+    phase: 2
+    task_tags: [ECG_RPEAK, ECG_HRV]
+    normalized_group: ecg_normal
+    modality: ECG
+
+  - dataset_name: nstdb
+    source_type: physionet
+    source_url: https://physionet.org/content/nstdb/1.0.0/
+    db_slug: nstdb
+    version: "1.0.0"
+    phase: 2
+    task_tags: [ECG_RPEAK, ECG_ARRHYTHMIA]
+    normalized_group: ecg_noise
+    modality: ECG
+
+  - dataset_name: but_pdb
+    source_type: physionet
+    source_url: https://physionet.org/content/but-pdb/1.0.0/
+    db_slug: but-pdb
+    version: "1.0.0"
+    phase: 2
+    task_tags: [ECG_QT_PWAVE]
+    normalized_group: ecg_pwave
+    modality: ECG
+
+  - dataset_name: but_ppg
+    source_type: physionet
+    source_url: https://physionet.org/content/butppg/1.0.0/
+    db_slug: butppg
+    version: "1.0.0"
+    phase: 1
+    task_tags: [PPG_HR, PPG_SQI]
+    normalized_group: ppg_quality
+    modality: PPG
+
+  - dataset_name: bidmc
+    source_type: physionet
+    source_url: https://physionet.org/content/bidmc/1.0.0/
+    db_slug: bidmc
+    version: "1.0.0"
+    phase: 1
+    task_tags: [PPG_RESP, ECG_RESP, PPG_HR]
+    normalized_group: ppg_respiration
+    modality: ECG+PPG+RESP
+
+  - dataset_name: ptt_ppg
+    source_type: physionet
+    source_url: https://physionet.org/content/pulse-transit-time-ppg/1.1.0/
+    db_slug: pulse-transit-time-ppg
+    version: "1.1.0"
+    phase: 1
+    task_tags: [ECG_PPG_SYNC, ECG_PPG_PTT]
+    normalized_group: ecg_ppg_joint
+    modality: ECG+PPG
+
+  - dataset_name: ppg_dalia
+    source_type: uci
+    source_url: https://archive.ics.uci.edu/dataset/495/ppg%2Bdalia
+    uci_id: 495
+    version: "uci-495"
+    phase: 2
+    task_tags: [PPG_HR, PPG_MOTION, PPG_SQI]
+    normalized_group: ppg_motion
+    modality: PPG+ACC
+
+  - dataset_name: apnea_ecg
+    source_type: physionet
+    source_url: https://physionet.org/content/apnea-ecg/1.0.0/
+    db_slug: apnea-ecg
+    version: "1.0.0"
+    phase: 3
+    task_tags: [ECG_RESP]
+    normalized_group: apnea_resp
+    modality: ECG+RESP

@@ -1,0 +1,17 @@
+idf_component_register(
+    SRCS
+        "app_main.c"
+        "app_tasks.c"
+    INCLUDE_DIRS
+        "."
+    REQUIRES
+        ble_service
+        crc
+        ecg_ad8232
+        ppg_max30102
+        sampler
+        state_monitor
+        timebase
+        nvs_flash
+        freertos
+)
