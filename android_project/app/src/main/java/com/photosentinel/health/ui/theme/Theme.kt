@@ -1,5 +1,3 @@
-// 文件：ui/theme/Theme.kt
-
 package com.photosentinel.health.ui.theme
 
 import android.app.Activity
@@ -13,8 +11,9 @@ import androidx.core.view.WindowCompat
 private val LightColorScheme = lightColorScheme(
     primary = AccentCyan,
     onPrimary = TextWhite,
-    primaryContainer = BgSurface,
-    secondary = PrimaryMedium,
+    primaryContainer = AccentCyanDim,
+    secondary = AccentBlue,
+    onSecondary = TextWhite,
     background = BgPrimary,
     onBackground = TextPrimary,
     surface = BgCard,
@@ -22,7 +21,9 @@ private val LightColorScheme = lightColorScheme(
     surfaceVariant = BgCardElevated,
     onSurfaceVariant = TextSecondary,
     outline = DividerColor,
-    error = StatusPoor
+    outlineVariant = DividerColor,
+    error = StatusPoor,
+    onError = TextWhite
 )
 
 @Composable

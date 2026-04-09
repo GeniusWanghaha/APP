@@ -27,6 +27,7 @@ import androidx.compose.material.icons.outlined.RadioButtonUnchecked
 import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material.icons.outlined.Restaurant
 import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -37,6 +38,7 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -55,13 +57,16 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.photosentinel.health.domain.model.HealthPlan
 import com.photosentinel.health.domain.model.PlanCategory
 import com.photosentinel.health.ui.components.SectionHeader
+import com.photosentinel.health.ui.theme.AccentBlue
 import com.photosentinel.health.ui.theme.AccentCyan
+import com.photosentinel.health.ui.theme.AccentIndigo
+import com.photosentinel.health.ui.theme.AccentOrange
 import com.photosentinel.health.ui.theme.BgCard
+import com.photosentinel.health.ui.theme.BgDeep
 import com.photosentinel.health.ui.theme.BgPrimary
-import com.photosentinel.health.ui.theme.BgSurface
 import com.photosentinel.health.ui.theme.DividerColor
+import com.photosentinel.health.ui.theme.StatusExcellent
 import com.photosentinel.health.ui.theme.StatusFair
-import com.photosentinel.health.ui.theme.StatusGood
 import com.photosentinel.health.ui.theme.StatusPoor
 import com.photosentinel.health.ui.theme.TextPrimary
 import com.photosentinel.health.ui.theme.TextSecondary
@@ -120,11 +125,13 @@ fun HealthPlanScreen(
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 20.dp, vertical = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(14.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             SectionHeader(title = "执行方案台")
+
+            // 进度卡片
             Card(
-                shape = RoundedCornerShape(16.dp),
+                shape = RoundedCornerShape(14.dp),
                 colors = CardDefaults.cardColors(containerColor = BgCard),
                 elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
             ) {
@@ -132,40 +139,62 @@ fun HealthPlanScreen(
                     modifier = Modifier.padding(16.dp),
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    Text(
-                        text = "已完成 $completedCount / ${plans.size} 项",
-                        style = MaterialTheme.typography.titleMedium,
-                        color = TextPrimary
-                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "已完成 $completedCount / ${plans.size} 项",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.SemiBold,
+                            color = TextPrimary
+                        )
+                        Text(
+                            text = "${(progress * 100).toInt()}%",
+                            style = MaterialTheme.typography.titleMedium,
+                            color = AccentCyan,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
                     LinearProgressIndicator(
                         progress = { progress },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(6.dp)
-                            .clip(RoundedCornerShape(3.dp)),
+                            .height(4.dp)
+                            .clip(RoundedCornerShape(2.dp)),
                         color = AccentCyan,
                         trackColor = DividerColor
                     )
                     Text(
                         text = if (pendingPlans.isNotEmpty()) {
-                            "下一步建议：${pendingPlans.first().title}（${pendingPlans.first().time}）"
+                            "下一步: ${pendingPlans.first().title}（${pendingPlans.first().time}）"
                         } else {
                             "所有执行步骤已完成，可以进入复测与报告复盘。"
                         },
                         style = MaterialTheme.typography.bodySmall,
-                        color = TextSecondary
+                        color = TextTertiary
                     )
                 }
             }
 
+            // 搜索
             OutlinedTextField(
                 value = keyword,
                 onValueChange = { keyword = it },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
-                label = { Text("搜索步骤（标题/描述/步骤号）") }
+                placeholder = { Text("搜索步骤", color = TextTertiary) },
+                shape = RoundedCornerShape(12.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = AccentCyan,
+                    unfocusedBorderColor = DividerColor,
+                    focusedContainerColor = BgCard,
+                    unfocusedContainerColor = BgCard
+                )
             )
 
+            // 分类筛选
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -184,41 +213,49 @@ fun HealthPlanScreen(
                 }
             }
 
+            // 操作按钮
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 Button(
                     onClick = { viewModel.setAllPlansCompleted(true) },
-                    colors = ButtonDefaults.buttonColors(containerColor = AccentCyan),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = AccentCyan,
+                        contentColor = Color.White
+                    ),
+                    shape = RoundedCornerShape(12.dp),
                     enabled = plans.isNotEmpty()
                 ) {
                     Text("全部完成")
                 }
                 OutlinedButton(
                     onClick = { viewModel.setAllPlansCompleted(false) },
-                    enabled = plans.isNotEmpty()
+                    enabled = plans.isNotEmpty(),
+                    shape = RoundedCornerShape(12.dp)
                 ) {
                     Text("全部重置")
                 }
                 OutlinedButton(
-                    onClick = { viewModel.refresh() }
+                    onClick = { viewModel.refresh() },
+                    shape = RoundedCornerShape(12.dp)
                 ) {
-                    Icon(imageVector = Icons.Outlined.Refresh, contentDescription = null)
-                    Spacer(modifier = Modifier.width(6.dp))
+                    Icon(imageVector = Icons.Outlined.Refresh, contentDescription = null, modifier = Modifier.size(16.dp))
+                    Spacer(modifier = Modifier.width(4.dp))
                     Text("刷新")
                 }
             }
 
+            // 列表
             if (filteredPlans.isEmpty()) {
                 Card(
                     shape = RoundedCornerShape(14.dp),
-                    colors = CardDefaults.cardColors(containerColor = BgSurface)
+                    colors = CardDefaults.cardColors(containerColor = BgDeep)
                 ) {
                     Text(
                         text = "当前筛选条件下没有步骤，建议清空关键词或切换分类。",
                         color = TextTertiary,
-                        modifier = Modifier.padding(14.dp)
+                        modifier = Modifier.padding(16.dp)
                     )
                 }
             } else {
@@ -249,15 +286,16 @@ private fun CategoryChip(
 ) {
     AssistChip(
         onClick = onClick,
-        label = { Text(label) },
-        colors = androidx.compose.material3.AssistChipDefaults.assistChipColors(
-            containerColor = if (selected) AccentCyan.copy(alpha = 0.16f) else BgCard,
+        label = { Text(label, style = MaterialTheme.typography.labelMedium) },
+        colors = AssistChipDefaults.assistChipColors(
+            containerColor = if (selected) AccentCyan.copy(alpha = 0.12f) else BgCard,
             labelColor = if (selected) AccentCyan else TextSecondary
         ),
         border = androidx.compose.foundation.BorderStroke(
             width = 1.dp,
-            color = if (selected) AccentCyan.copy(alpha = 0.35f) else DividerColor
-        )
+            color = if (selected) AccentCyan.copy(alpha = 0.3f) else DividerColor
+        ),
+        shape = RoundedCornerShape(20.dp)
     )
 }
 
@@ -275,11 +313,11 @@ private fun PlanItem(
     }
 
     val categoryColor: Color = when (plan.category) {
-        PlanCategory.EXERCISE -> StatusGood
-        PlanCategory.DIET -> AccentCyan
-        PlanCategory.SLEEP -> Color(0xFF5E92F3)
+        PlanCategory.EXERCISE -> StatusExcellent
+        PlanCategory.DIET -> AccentOrange
+        PlanCategory.SLEEP -> AccentIndigo
         PlanCategory.MEDICATION -> StatusPoor
-        PlanCategory.CHECKUP -> AccentCyan
+        PlanCategory.CHECKUP -> AccentBlue
     }
 
     Card(
@@ -301,7 +339,7 @@ private fun PlanItem(
                 Icon(
                     imageVector = if (plan.isCompleted) Icons.Filled.CheckCircle else Icons.Outlined.RadioButtonUnchecked,
                     contentDescription = null,
-                    tint = if (plan.isCompleted) AccentCyan else TextTertiary,
+                    tint = if (plan.isCompleted) StatusExcellent else TextTertiary,
                     modifier = Modifier.size(22.dp)
                 )
             }
@@ -312,7 +350,7 @@ private fun PlanItem(
                 modifier = Modifier
                     .size(36.dp)
                     .clip(RoundedCornerShape(10.dp))
-                    .background(categoryColor.copy(alpha = 0.12f)),
+                    .background(categoryColor.copy(alpha = 0.10f)),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
@@ -329,6 +367,7 @@ private fun PlanItem(
                 Text(
                     text = plan.title,
                     style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Medium,
                     color = if (plan.isCompleted) TextTertiary else TextPrimary,
                     textDecoration = if (plan.isCompleted) TextDecoration.LineThrough else TextDecoration.None
                 )

@@ -1,43 +1,47 @@
-// 文件：ui/theme/Color.kt
-
 package com.photosentinel.health.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
 // ══════════════════════════════════════════
-// 光电哨兵 — 蓝白简约配色系统
-// 清爽白底 × 医疗蓝强调 × 高可读性
+// PhotoSentinel — Apple Health 风格配色系统
+// 温暖中性底色 × 珊瑚红主色 × 清晰层级
 // ══════════════════════════════════════════
 
-// 主色调 — 医疗蓝
-val PrimaryDark = Color(0xFF0F4C81)
-val PrimaryMedium = Color(0xFF1D6FB8)
-val PrimaryLight = Color(0xFF4FA6F2)
+// 主色调 — 心血管珊瑚红（Apple Health 风格）
+val PrimaryDark = Color(0xFFC2185B)
+val PrimaryMedium = Color(0xFFE91E63)
+val PrimaryLight = Color(0xFFF06292)
 
-// 强调色 — 统一蓝色高亮
-val AccentCyan = Color(0xFF1E88E5)
-val AccentCyanDim = Color(0x331E88E5)
-val AccentCyanSubtle = Color(0x141E88E5)
+// 强调色 — 健康活力红
+val AccentCyan = Color(0xFFFF2D55)      // Apple Health 红
+val AccentCyanDim = Color(0x33FF2D55)
+val AccentCyanSubtle = Color(0x14FF2D55)
 
-// 血管弹性等级色（克制使用，仅出现在等级标识处）
-val StatusExcellent = Color(0xFF1E88E5)
-val StatusGood = Color(0xFF42A5F5)
-val StatusFair = Color(0xFFFFB300)
-val StatusPoor = Color(0xFFE53935)
+// 功能色 — 克制使用
+val StatusExcellent = Color(0xFF34C759) // Apple 绿
+val StatusGood = Color(0xFF30D158)      // 活力绿
+val StatusFair = Color(0xFFFF9500)      // Apple 橙
+val StatusPoor = Color(0xFFFF3B30)      // Apple 红
 
-// 背景层级
-val BgDeep = Color(0xFFEAF3FF)
-val BgPrimary = Color(0xFFF7FAFF)
-val BgCard = Color(0xFFFFFFFF)
-val BgCardElevated = Color(0xFFF1F6FF)
-val BgSurface = Color(0xFFE8F1FF)
+// 辅助色 — 指标区分
+val AccentBlue = Color(0xFF007AFF)      // Apple 蓝
+val AccentTeal = Color(0xFF5AC8FA)      // Apple 浅蓝
+val AccentIndigo = Color(0xFF5856D6)    // Apple 紫
+val AccentOrange = Color(0xFFFF9500)    // Apple 橙
+
+// 背景层级 — 温暖中性
+val BgDeep = Color(0xFFF2F2F7)          // Apple 系统灰
+val BgPrimary = Color(0xFFF9F9FB)       // 页面底色
+val BgCard = Color(0xFFFFFFFF)          // 卡片白
+val BgCardElevated = Color(0xFFF5F5F7)  // 提升卡片
+val BgSurface = Color(0xFFE5E5EA)       // 分组背景
 
 // 文字层级
-val TextPrimary = Color(0xFF12324A)
-val TextSecondary = Color(0xFF4A6A85)
-val TextTertiary = Color(0xFF6E8CA6)
-val TextHint = Color(0xFF8FA9BF)
+val TextPrimary = Color(0xFF1C1C1E)     // Apple 一级黑
+val TextSecondary = Color(0xFF3C3C43)   // Apple 二级
+val TextTertiary = Color(0xFF8E8E93)    // Apple 三级灰
+val TextHint = Color(0xFFAEAEB2)        // 占位符
 val TextWhite = Color(0xFFFFFFFF)
 
 // 分隔线
-val DividerColor = Color(0xFFD9E6F5)
+val DividerColor = Color(0xFFE5E5EA)    // Apple 系统分隔

@@ -3,10 +3,10 @@ package com.photosentinel.health.ui
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Chat
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Schedule
-import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -18,15 +18,15 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.photosentinel.health.ui.screens.AIChatScreen
-import com.photosentinel.health.ui.screens.HealthPlanScreen
+import com.photosentinel.health.ui.screens.ExecutionScreen
+import com.photosentinel.health.ui.screens.HealthTipsScreen
 import com.photosentinel.health.ui.screens.HomeScreen
-import com.photosentinel.health.ui.screens.MallScreen
 import com.photosentinel.health.ui.screens.ProfileScreen
 import com.photosentinel.health.ui.theme.AccentCyan
-import com.photosentinel.health.ui.theme.AccentCyanSubtle
 import com.photosentinel.health.ui.theme.BgCard
 import com.photosentinel.health.ui.theme.BgPrimary
 import com.photosentinel.health.ui.theme.TextTertiary
@@ -38,9 +38,9 @@ sealed class BottomNavItem(
 ) {
     data object Home : BottomNavItem("home", "采集", Icons.Default.Home)
     data object AIChat : BottomNavItem("ai_chat", "AI问答", Icons.AutoMirrored.Filled.Chat)
-    data object HealthPlan : BottomNavItem("health_plan", "方案", Icons.Default.Schedule)
-    data object Mall : BottomNavItem("mall", "展示", Icons.Default.ShoppingCart)
-    data object Profile : BottomNavItem("profile", "设置", Icons.Default.Person)
+    data object Execution : BottomNavItem("execution", "执行台", Icons.Default.PlayArrow)
+    data object Tips : BottomNavItem("tips", "建议", Icons.Default.FavoriteBorder)
+    data object Profile : BottomNavItem("profile", "我的", Icons.Default.Person)
 }
 
 @Composable
@@ -49,8 +49,8 @@ fun MainApp() {
     val tabs = listOf(
         BottomNavItem.Home,
         BottomNavItem.AIChat,
-        BottomNavItem.HealthPlan,
-        BottomNavItem.Mall,
+        BottomNavItem.Execution,
+        BottomNavItem.Tips,
         BottomNavItem.Profile
     )
 
@@ -72,7 +72,7 @@ fun MainApp() {
                             selectedTextColor = AccentCyan,
                             unselectedIconColor = TextTertiary,
                             unselectedTextColor = TextTertiary,
-                            indicatorColor = AccentCyanSubtle
+                            indicatorColor = Color.Transparent
                         )
                     )
                 }
@@ -83,8 +83,8 @@ fun MainApp() {
         when (selectedTab) {
             0 -> HomeScreen(modifier)
             1 -> AIChatScreen(modifier)
-            2 -> HealthPlanScreen(modifier)
-            3 -> MallScreen(modifier)
+            2 -> ExecutionScreen(modifier)
+            3 -> HealthTipsScreen(modifier)
             4 -> ProfileScreen(modifier)
         }
     }

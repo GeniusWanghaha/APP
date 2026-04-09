@@ -1,5 +1,3 @@
-// 文件：ui/components/TrendChart.kt
-
 package com.photosentinel.health.ui.components
 
 import androidx.compose.foundation.Canvas
@@ -40,7 +38,6 @@ fun PwvTrendChart(
 
             val stepX = width / (data.size - 1).coerceAtLeast(1)
 
-            // 网格线（极淡）
             for (i in 0..3) {
                 val y = paddingTop + chartHeight * i / 3f
                 drawLine(
@@ -51,7 +48,6 @@ fun PwvTrendChart(
                 )
             }
 
-            // 构建路径
             val path = Path()
             val points = data.mapIndexed { index, point ->
                 val x = index * stepX
@@ -59,7 +55,6 @@ fun PwvTrendChart(
                 Offset(x, y)
             }
 
-            // 填充渐变区域
             val fillPath = Path()
             points.forEachIndexed { index, offset ->
                 if (index == 0) {
@@ -81,13 +76,12 @@ fun PwvTrendChart(
                 path = fillPath,
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        AccentCyan.copy(alpha = 0.15f),
-                        AccentCyan.copy(alpha = 0.02f)
+                        AccentCyan.copy(alpha = 0.12f),
+                        AccentCyan.copy(alpha = 0.01f)
                     )
                 )
             )
 
-            // 主曲线
             drawPath(
                 path = path,
                 color = AccentCyan,
@@ -98,7 +92,6 @@ fun PwvTrendChart(
                 )
             )
 
-            // 数据点
             points.forEach { offset ->
                 drawCircle(
                     color = BgCard,
@@ -113,7 +106,6 @@ fun PwvTrendChart(
             }
         }
 
-        // X轴标签
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween

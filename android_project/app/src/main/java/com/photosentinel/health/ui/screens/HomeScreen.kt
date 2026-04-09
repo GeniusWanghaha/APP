@@ -1,6 +1,5 @@
 package com.photosentinel.health.ui.screens
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,6 +23,7 @@ import androidx.compose.material.icons.outlined.MonitorHeart
 import androidx.compose.material.icons.outlined.Speed
 import androidx.compose.material.icons.outlined.Timer
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -34,20 +34,26 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.photosentinel.health.data.ElasticityLevel
 import com.photosentinel.health.ui.components.GlowDivider
 import com.photosentinel.health.ui.components.MetricCard
+import com.photosentinel.health.ui.components.PulseRing
 import com.photosentinel.health.ui.components.PwvTrendChart
 import com.photosentinel.health.ui.components.RealtimeWaveformChart
 import com.photosentinel.health.ui.components.SectionHeader
 import com.photosentinel.health.ui.components.StatusChip
+import com.photosentinel.health.ui.theme.AccentBlue
 import com.photosentinel.health.ui.theme.AccentCyan
+import com.photosentinel.health.ui.theme.AccentIndigo
+import com.photosentinel.health.ui.theme.AccentOrange
+import com.photosentinel.health.ui.theme.AccentTeal
 import com.photosentinel.health.ui.theme.BgCard
 import com.photosentinel.health.ui.theme.BgPrimary
 import com.photosentinel.health.ui.theme.DividerColor
@@ -127,7 +133,7 @@ fun HomeScreen(
 
         if (!measurementReady && !collecting) {
             Text(
-                text = "点击“连接并开始 60 秒测量”。采集阶段不显示最终指标，完成后统一输出 ECG+PPG 真实结果。",
+                text = "点击下方按钮开始 60 秒标准采集，完成后统一输出 ECG+PPG 真实结果。",
                 style = MaterialTheme.typography.bodySmall,
                 color = TextTertiary,
                 modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp)
@@ -136,10 +142,11 @@ fun HomeScreen(
 
         Column(
             modifier = Modifier.padding(horizontal = 20.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
+            verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
+            // Hero Card — Apple Health 风格
             HeroOverviewCard(
                 collecting = collecting,
                 measurementReady = measurementReady,
@@ -149,18 +156,42 @@ fun HomeScreen(
                 statusColor = statusColor
             )
 
-            SectionHeaderWithIcon(title = "测量控制", icon = Icons.Outlined.MonitorHeart)
+            // 测量控制
+            SectionHeader(title = "测量控制")
             CardBlock {
-                Text("设备状态：${uiState.deviceStatus}", color = TextPrimary)
-                Text("当前会话：${uiState.sessionId ?: "未开始"}", color = TextSecondary)
-                Text("输出层级：${uiState.outputTierLabel}", color = TextSecondary)
-                Text("累计丢帧：${uiState.droppedFrames}", color = TextSecondary)
-                Text(uiState.statusDigest, color = TextTertiary, style = MaterialTheme.typography.bodySmall)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(uiState.deviceStatus, color = TextPrimary, style = MaterialTheme.typography.titleMedium)
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Text(
+                            "会话: ${uiState.sessionId ?: "未开始"} | 层级: ${uiState.outputTierLabel}",
+                            color = TextTertiary,
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                        if (uiState.droppedFrames > 0) {
+                            Text(
+                                "累计丢帧: ${uiState.droppedFrames}",
+                                color = StatusFair,
+                                style = MaterialTheme.typography.bodySmall
+                            )
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(4.dp))
 
                 Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                     Button(
                         onClick = { viewModel.startMeasurement() },
-                        enabled = !collecting
+                        enabled = !collecting,
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = AccentCyan,
+                            contentColor = Color.White
+                        ),
+                        shape = RoundedCornerShape(12.dp)
                     ) {
                         Icon(
                             imageVector = if (collecting) Icons.Outlined.Timer else Icons.Outlined.MonitorHeart,
@@ -172,42 +203,40 @@ fun HomeScreen(
                     }
                     OutlinedButton(
                         onClick = { viewModel.disconnectHardware() },
-                        enabled = uiState.isStreaming
+                        enabled = uiState.isStreaming,
+                        shape = RoundedCornerShape(12.dp)
                     ) {
                         Text("断开设备")
                     }
                 }
 
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    StatusChip(
-                        text = sessionStatusText,
-                        color = if (uiState.isStreaming) StatusGood else TextTertiary
-                    )
-                    StatusChip(
-                        text = if (measurementReady) "SQI ${detection.signalQualityPercent}%" else "SQI --",
-                        color = statusColor
-                    )
-                }
-
                 if (collecting) {
+                    Spacer(modifier = Modifier.height(4.dp))
                     LinearProgressIndicator(
                         progress = { uiState.measurementProgress },
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(4.dp)
+                            .clip(RoundedCornerShape(2.dp)),
                         color = AccentCyan,
                         trackColor = DividerColor
                     )
                     Text(
-                        text = "正在进行 60 秒窗口采集，结束后统一进行批处理并输出最终结果。",
+                        text = "正在进行 60 秒窗口采集，结束后统一批处理并输出最终结果。",
                         color = TextTertiary,
                         style = MaterialTheme.typography.bodySmall
                     )
                 }
             }
 
-            SectionHeaderWithIcon(title = "波形结果", icon = Icons.Outlined.Speed)
+            // 波形
+            SectionHeader(title = "波形结果")
             CardBlock {
                 if (!measurementReady) {
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Icon(
                             imageVector = Icons.Outlined.Info,
                             contentDescription = null,
@@ -224,19 +253,21 @@ fun HomeScreen(
                     RealtimeWaveformChart(
                         title = "ECG 波形",
                         points = uiState.ecgWaveform,
-                        accentColor = StatusGood,
+                        accentColor = AccentCyan,
                         sampleRateHz = 250
                     )
+                    Spacer(modifier = Modifier.height(8.dp))
                     RealtimeWaveformChart(
                         title = "PPG-IR 波形",
                         points = uiState.ppgWaveform,
-                        accentColor = AccentCyan,
+                        accentColor = AccentBlue,
                         sampleRateHz = 400
                     )
                 }
             }
 
-            SectionHeaderWithIcon(title = "60 秒测量结果", icon = Icons.Outlined.Timer)
+            // 核心指标
+            SectionHeader(title = "60 秒测量结果")
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -247,7 +278,7 @@ fun HomeScreen(
                     label = "联合心率",
                     value = heartRateText,
                     unit = "次/分",
-                    accentColor = statusColor
+                    accentColor = AccentCyan
                 )
                 MetricCard(
                     modifier = Modifier.weight(1f),
@@ -255,7 +286,7 @@ fun HomeScreen(
                     label = "血氧饱和度",
                     value = spo2Text,
                     unit = "%",
-                    accentColor = StatusGood
+                    accentColor = AccentBlue
                 )
             }
             Row(
@@ -267,7 +298,8 @@ fun HomeScreen(
                     icon = Icons.Outlined.Timer,
                     label = "PTT",
                     value = pttText,
-                    unit = "ms"
+                    unit = "ms",
+                    accentColor = AccentTeal
                 )
                 MetricCard(
                     modifier = Modifier.weight(1f),
@@ -275,7 +307,7 @@ fun HomeScreen(
                     label = "PWV",
                     value = pwvText,
                     unit = "m/s",
-                    accentColor = AccentCyan
+                    accentColor = AccentOrange
                 )
             }
             Row(
@@ -287,7 +319,8 @@ fun HomeScreen(
                     icon = Icons.Outlined.MonitorHeart,
                     label = "血管年龄",
                     value = vascularAgeText,
-                    unit = "岁"
+                    unit = "岁",
+                    accentColor = AccentIndigo
                 )
                 MetricCard(
                     modifier = Modifier.weight(1f),
@@ -307,46 +340,58 @@ fun HomeScreen(
                     icon = Icons.Outlined.Speed,
                     label = "信号质量 SQI",
                     value = sqiText,
-                    unit = "%"
+                    unit = "%",
+                    accentColor = StatusExcellent
                 )
                 MetricCard(
                     modifier = Modifier.weight(1f),
                     icon = Icons.Outlined.Timer,
                     label = "输出层级",
-                    value = outputTierText
+                    value = outputTierText,
+                    accentColor = AccentTeal
                 )
             }
 
-            SectionHeaderWithIcon(title = "高级指标（批处理）", icon = Icons.Outlined.Favorite)
+            // 高级指标
+            SectionHeader(title = "高级指标")
             CardBlock {
                 MetricLine("SDNN: ${formatMetric(advanced.sdnnMs, "ms")}", "RMSSD: ${formatMetric(advanced.rmssdMs, "ms")}")
                 MetricLine("pNN50: ${formatMetric(advanced.pnn50Percent, "%")}", "Mean RR: ${formatMetric(advanced.rrMeanMs, "ms")}")
                 MetricLine("RR CV: ${formatMetric(advanced.rrCv, "")}", "AF概率: ${formatMetric(advanced.afProbabilityPercent, "%")}")
                 MetricLine("样本熵: ${formatMetric(advanced.sampleEntropy, "")}", "节律风险指数: ${formatMetric(advanced.arrhythmiaIndex, "")}")
+                GlowDivider()
                 MetricLine("Poincare SD1: ${formatMetric(advanced.sd1Ms, "ms")}", "Poincare SD2: ${formatMetric(advanced.sd2Ms, "ms")}")
                 MetricLine("SD1/SD2: ${formatMetric(advanced.sd1Sd2Ratio, "")}", "异常心搏占比: ${formatMetric(advanced.arrhythmiaBeatRatioPercent, "%")}")
+                GlowDivider()
                 MetricLine("PAT: ${formatMetric(advanced.patMs, "ms")}", "PWTT: ${formatMetric(advanced.pwttMs, "ms")}")
-                MetricLine("PTT有效搏动占比: ${formatMetric(advanced.pttValidBeatRatio?.times(100.0), "%")}", "心搏-脉搏一致性: ${formatMetric(advanced.beatPulseConsistency?.times(100.0), "%")}")
+                MetricLine("PTT有效搏动: ${formatMetric(advanced.pttValidBeatRatio?.times(100.0), "%")}", "心搏-脉搏一致性: ${formatMetric(advanced.beatPulseConsistency?.times(100.0), "%")}")
                 MetricLine("灌注指数PI: ${formatMetric(advanced.perfusionIndex, "")}", "反射指数RI: ${formatMetric(advanced.reflectionIndex, "")}")
                 MetricLine("上升时间: ${formatMetric(advanced.riseTimeMs, "ms")}", "半高宽: ${formatMetric(advanced.halfWidthMs, "ms")}")
+                GlowDivider()
                 MetricLine("呼吸率(ECG): ${formatMetric(advanced.ecgRespRateBpm, "bpm")}", "呼吸率(PPG): ${formatMetric(advanced.ppgRespRateBpm, "bpm")}")
                 MetricLine("QRS宽度: ${formatMetric(advanced.qrsWidthMs, "ms")}", "QT: ${formatMetric(advanced.qtMs, "ms")}")
                 MetricLine("QTc: ${formatMetric(advanced.qtcMs, "ms")}", "P波可靠度: ${formatMetric(advanced.pWaveQualityPercent, "%")}")
             }
 
-            SectionHeaderWithIcon(title = "质量门控与风险提示", icon = Icons.Outlined.Info)
+            // 质量与风险
+            SectionHeader(title = "质量门控与风险提示")
             CardBlock {
                 Text("门控建议", color = TextPrimary, style = MaterialTheme.typography.titleMedium)
                 uiState.qualityTips.forEach { tip ->
-                    Text("- $tip", color = TextSecondary)
+                    Text("  $tip", color = TextSecondary, style = MaterialTheme.typography.bodySmall)
                 }
                 GlowDivider()
-                Text("风险摘要：${uiState.riskDigest}", color = TextSecondary)
+                Text(
+                    "风险摘要: ${uiState.riskDigest}",
+                    color = TextSecondary,
+                    style = MaterialTheme.typography.bodySmall
+                )
             }
 
-            SectionHeaderWithIcon(title = "联合指标趋势", icon = Icons.Outlined.Speed)
+            // 趋势
+            SectionHeader(title = "联合指标趋势")
             Card(
-                shape = RoundedCornerShape(16.dp),
+                shape = RoundedCornerShape(14.dp),
                 colors = CardDefaults.cardColors(containerColor = BgCard),
                 elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
             ) {
@@ -365,7 +410,8 @@ fun HomeScreen(
                 }
             }
 
-            SectionHeaderWithIcon(title = "AI 报告", icon = Icons.Outlined.MonitorHeart)
+            // AI 报告
+            SectionHeader(title = "AI 报告")
             CardBlock {
                 Text(
                     text = if (measurementReady && uiState.aiSummary.isNotBlank()) {
@@ -374,13 +420,14 @@ fun HomeScreen(
                         "完成 60 秒测量后生成本轮 AI 解读。"
                     },
                     style = MaterialTheme.typography.bodyMedium,
-                    color = TextSecondary
+                    color = TextSecondary,
+                    lineHeight = 22.sp
                 )
             }
 
             uiState.exportHint?.let { hint ->
                 Text(
-                    text = "最近导出：$hint",
+                    text = "最近导出: $hint",
                     color = TextTertiary,
                     style = MaterialTheme.typography.bodySmall
                 )
@@ -401,104 +448,63 @@ private fun HeroOverviewCard(
     statusColor: Color
 ) {
     Card(
-        shape = RoundedCornerShape(18.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
-        border = BorderStroke(1.dp, DividerColor),
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(containerColor = BgCard),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
-        Box(
-            modifier = Modifier.background(
-                brush = Brush.linearGradient(
-                    colors = listOf(
-                        BgCard,
-                        BgCard.copy(alpha = 0.92f),
-                        AccentCyan.copy(alpha = 0.08f)
-                    )
-                )
-            )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 28.dp, horizontal = 20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(
-                modifier = Modifier.padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
+            PulseRing(
+                size = 140.dp,
+                color = AccentCyan
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            Text(
+                "血管弹性评估",
+                color = TextPrimary,
+                style = MaterialTheme.typography.headlineSmall
+            )
+            Spacer(modifier = Modifier.height(6.dp))
+            Text(
+                "ECG + PPG 联合采集，60 秒输出血管弹性指标",
+                color = TextTertiary,
+                style = MaterialTheme.typography.bodySmall
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Box(
-                        modifier = Modifier
-                            .size(34.dp)
-                            .background(
-                                color = AccentCyan.copy(alpha = 0.14f),
-                                shape = RoundedCornerShape(12.dp)
-                            ),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.MonitorHeart,
-                            contentDescription = null,
-                            tint = AccentCyan,
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }
-                    Column {
-                        Text("ECG + PPG 健康评估", color = TextPrimary, style = MaterialTheme.typography.titleMedium)
-                        Text("60 秒标准采集窗口，结束后输出真实指标", color = TextTertiary, style = MaterialTheme.typography.bodySmall)
-                    }
-                }
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    StatusChip(text = sessionStatusText, color = if (collecting) StatusGood else TextSecondary)
-                    StatusChip(text = outputTierText, color = AccentCyan)
-                    StatusChip(text = sqiText, color = if (measurementReady) statusColor else TextTertiary)
-                }
+                StatusChip(
+                    text = sessionStatusText,
+                    color = if (collecting) StatusGood else TextTertiary
+                )
+                StatusChip(text = outputTierText, color = AccentBlue)
+                StatusChip(
+                    text = sqiText,
+                    color = if (measurementReady) statusColor else TextTertiary
+                )
             }
         }
     }
 }
 
 @Composable
-private fun SectionHeaderWithIcon(title: String, icon: ImageVector) {
-    SectionHeader(
-        title = title,
-        trailing = {
-            Box(
-                modifier = Modifier
-                    .size(26.dp)
-                    .background(
-                        color = AccentCyan.copy(alpha = 0.12f),
-                        shape = RoundedCornerShape(8.dp)
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = null,
-                    tint = AccentCyan,
-                    modifier = Modifier.size(16.dp)
-                )
-            }
-        }
-    )
-}
-
-@Composable
 private fun CardBlock(content: @Composable ColumnScope.() -> Unit) {
     Card(
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
-        border = BorderStroke(1.dp, DividerColor),
+        shape = RoundedCornerShape(14.dp),
+        colors = CardDefaults.cardColors(containerColor = BgCard),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
-        Box(
-            modifier = Modifier.background(
-                brush = Brush.linearGradient(
-                    colors = listOf(BgCard, BgCard.copy(alpha = 0.9f))
-                )
-            )
-        ) {
-            Column(
-                modifier = Modifier.padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp),
-                content = content
-            )
-        }
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            content = content
+        )
     }
 }
 
@@ -511,15 +517,13 @@ private fun MetricLine(left: String, right: String) {
         Text(
             text = left,
             color = TextSecondary,
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.Medium,
+            style = MaterialTheme.typography.bodySmall,
             modifier = Modifier.weight(1f)
         )
         Text(
             text = right,
             color = TextSecondary,
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.Medium,
+            style = MaterialTheme.typography.bodySmall,
             modifier = Modifier.weight(1f)
         )
     }
